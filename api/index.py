@@ -38,10 +38,10 @@ class handler(BaseHTTPRequestHandler):
             if len(available_baskets):
                 asyncio.new_event_loop().run_until_complete(send_message(available_baskets))
         except Exception as ex:
-            self.send_response(500)
+            self.send_response(200)
             self.send_header('Content-type','text/json')
             self.end_headers()
-            self.wfile.write(str(ex).encode(encoding='utf_8'))
+            self.wfile.write(json.dumps({ "data": "Failed" }).encode(encoding='utf_8'))
             return
         self.send_response(200)
         self.send_header('Content-type','text/json')
